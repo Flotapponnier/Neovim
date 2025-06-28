@@ -24,7 +24,6 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
 require("config.options")
-require("config.filetypes") -- Add this line for Jinja2 support
 
 -- Setup lazy.nvim
 require("lazy").setup({
