@@ -35,6 +35,7 @@ require("lazy").setup({
 	checker = { enabled = true },
 })
 
+require("config.filetypes")
 require("config.keymaps")
 --for video recording purpose
 --vim.cmd("ShowkeysToggle")

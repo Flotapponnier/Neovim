@@ -1,4 +1,3 @@
--- treesitter.lua
 return {
 	{
 		"nvim-treesitter/nvim-treesitter",
@@ -6,6 +5,7 @@ return {
 		event = { "BufReadPost", "BufNewFile" },
 		config = function()
 			local configs = require("nvim-treesitter.configs")
+
 			configs.setup({
 				-- Install parsers for web development
 				ensure_installed = {
@@ -20,22 +20,28 @@ return {
 					"markdown",
 					"bash",
 					"yaml",
-					"htmldjango", -- This handles HTML+Django/Jinja templates
 				},
+
 				-- Install parsers synchronously (only applied to `ensure_installed`)
 				sync_install = false,
+
 				-- Automatically install missing parsers when entering buffer
 				auto_install = true,
+
 				-- Enable syntax highlighting
 				highlight = {
 					enable = true,
+					-- Disable treesitter for htmldjango to avoid conflicts with regex syntax
+					disable = { "htmldjango" },
 					-- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-					additional_vim_regex_highlighting = false,
+					additional_vim_regex_highlighting = { "htmldjango" },
 				},
+
 				-- Enable indentation
 				indent = {
 					enable = true,
 				},
+
 				-- Enable incremental selection
 				incremental_selection = {
 					enable = true,
@@ -45,20 +51,6 @@ return {
 						scope_incremental = "grc",
 						node_decremental = "grm",
 					},
-				},
-			})
-
-			-- Set up filetype associations for Jinja templates
-			vim.filetype.add({
-				extension = {
-					jinja = "htmldjango",
-					jinja2 = "htmldjango",
-					j2 = "htmldjango",
-				},
-				pattern = {
-					[".*%.html%.j2"] = "htmldjango",
-					[".*%.html%.jinja"] = "htmldjango",
-					[".*%.html%.jinja2"] = "htmldjango",
 				},
 			})
 		end,
